@@ -7,83 +7,141 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#0b0d10; --panel:#12161b; --soft:#1a1f27; --text:#e8eef6; --muted:#a0acbd; --accent:#7c8cff; --accent-2:#4ad6a7;
-      --radius:18px; --shadow:0 10px 30px rgba(0,0,0,.35);
+      --bg:#000; --panel:#0a0a0a; --soft:#111; --text:#e8eef6; --muted:#a0acbd;
+      --accent:#7c8cff; --accent-2:#4ad6a7; --radius:18px; --shadow:0 10px 30px rgba(0,0,0,.45);
     }
     *{box-sizing:border-box}
-    html,body{margin:0; padding:0; font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif; color:var(--text); background:linear-gradient(180deg, #0b0d10 0%, #0e1216 60%, #0b0d10 100%);}    
-    a{color:inherit; text-decoration:none}
-    img{max-width:100%; height:auto; display:block; border-radius:12px}
+    html,body{margin:0;padding:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);background:var(--bg);scroll-behavior:smooth}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;height:auto;display:block;border-radius:12px}
 
-    /* Layout */
-    .container{max-width:1100px; margin:0 auto; padding:0 20px}
-    header.site{position:sticky; top:0; z-index:50; backdrop-filter:blur(8px); background:rgba(11,13,16,.5); border-bottom:1px solid rgba(255,255,255,.06)}
-    .nav{display:flex; align-items:center; justify-content:space-between; height:64px}
-    .nav a.logo{font-weight:800; letter-spacing:.5px}
-    .nav .links{display:flex; gap:18px}
-    .btn{display:inline-flex; align-items:center; gap:8px; padding:12px 16px; border-radius:12px; background:var(--accent); color:#0b0d10; font-weight:700; transition:transform .15s ease, box-shadow .15s ease}
-    .btn.secondary{background:var(--soft); color:var(--text); border:1px solid rgba(255,255,255,.08)}
-    .btn:hover{transform:translateY(-2px); box-shadow:0 8px 18px rgba(124,140,255,.25)}
+    /* layout */
+    .container{max-width:1100px;margin:0 auto;padding:0 20px}
+    header.site{position:sticky;top:0;z-index:50;backdrop-filter:blur(8px);background:rgba(0,0,0,.5);border-bottom:1px solid rgba(255,255,255,.08)}
+    .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+    .nav a.logo{font-weight:800;letter-spacing:.5px}
+    .nav .links{display:flex;gap:28px;align-items:center}
 
-    /* Hero */
+    /* nav links */
+    .nav .links a{
+      position:relative;padding:8px 2px;font-weight:700;transition:transform .12s ease, filter .15s ease;
+      background-image:linear-gradient(90deg,var(--accent),var(--accent-2));
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+    }
+    /* gradient inherit */
+    .nav .links a .wave-letter{background-image:inherit;-webkit-background-clip:text;background-clip:text;color:transparent}
+    .nav .links a::after{
+      content:"";position:absolute;left:0;right:0;bottom:-4px;height:2px;
+      background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      transform:scaleX(0);transform-origin:left;transition:transform .25s ease;
+      border-radius:2px;filter:drop-shadow(0 0 6px rgba(124,140,255,.35));
+    }
+    .nav .links a:hover{transform:translateY(-1px);filter:drop-shadow(0 0 8px rgba(124,140,255,.35))}
+    .nav .links a:hover::after{transform:scaleX(1)}
+    .nav .links a:active{transform:translateY(0) scale(0.98)}
+
+    /* resume link */
+    #openResume{
+      letter-spacing:.2px;background-image:linear-gradient(90deg,var(--accent),#9ae6b4,var(--accent-2),var(--accent));
+      background-size:200% 100%;animation:resumeShimmer 6s linear infinite;
+      filter:drop-shadow(0 0 10px rgba(124,140,255,.45));display:inline-flex;
+    }
+    #openResume .wave-letter{background-image:inherit;-webkit-background-clip:text;background-clip:text;color:transparent}
+    @keyframes resumeShimmer{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+
+    /* wave letters */
+    .wave-letter{display:inline-block;transform-origin:bottom center;animation:wave 1.6s ease-in-out infinite;will-change:transform}
+    @keyframes wave{0%{transform:translateY(0)}50%{transform:translateY(-2px)}100%{transform:translateY(0)}}
+
+    /* buttons */
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:12px;background:var(--accent);color:#0b0d10;font-weight:700;transition:transform .15s ease,box-shadow .15s ease}
+    .btn.secondary{background:var(--soft);color:var(--text);border:1px solid rgba(255,255,255,.08)}
+    .btn:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(124,140,255,.25)}
+
+    /* hero */
     .hero{padding:72px 0 40px}
-    .hero-wrap{display:grid; grid-template-columns:1.2fr .8fr; gap:28px; align-items:center}
-    .tag{display:inline-block; padding:6px 10px; border-radius:99px; background:rgba(124,140,255,.15); color:var(--accent); font-weight:700; font-size:.85rem}
-    h1{font-size:clamp(36px,6vw,54px); line-height:1.05; margin:14px 0 10px}
-    .lead{color:var(--muted); font-size:1.05rem}
-    .cta{display:flex; gap:12px; margin-top:18px}
-    .hero-card{border-radius:50%; overflow:hidden; width:260px; height:260px; margin:auto}
-    .hero-card img{width:100%; height:100%; object-fit:cover; border-radius:50%}
+    .hero-wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center}
+    .tag{display:inline-block;padding:6px 10px;border-radius:99px;background:rgba(124,140,255,.15);color:var(--accent);font-weight:700;font-size:.85rem}
+    h1{font-size:clamp(36px,6vw,54px);line-height:1.05;margin:14px 0 10px}
+    .lead{color:var(--muted);font-size:1.05rem}
+    .cta{display:flex;gap:12px;margin-top:18px}
+    .hero-card{border-radius:50%;overflow:hidden;width:260px;height:260px;margin:auto}
+    .hero-card img{width:100%;height:100%;object-fit:cover;border-radius:50%}
 
-    /* Sections */
+    /* sections */
     section{padding:30px 0}
-    .section-title{font-size:1.4rem; margin:0 0 18px; font-weight:800}
+    .section-title{font-size:1.4rem;margin:0 0 18px;font-weight:800}
 
-    /* Projects / Certs */
-    .grid{display:grid; gap:18px}
+    /* cards */
+    .grid{display:grid;gap:18px}
     .grid.cols-2{grid-template-columns:repeat(2,1fr)}
     .grid.cols-3{grid-template-columns:repeat(3,1fr)}
-    .card{background:var(--panel); border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); display:flex; flex-direction:column}
-    .card img{height:200px; object-fit:cover; border-radius:0}
-    .card .body{padding:16px; font-size:.95rem; color:var(--muted)}
-    .card h3{margin:0 0 8px; font-size:1.05rem; color:var(--text)}
-    .pill{display:inline-block; padding:6px 10px; border-radius:99px; background:rgba(255,255,255,.06); color:var(--muted); font-size:.8rem; margin-right:8px}
+    .card{background:var(--panel);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+    .card img{height:200px;object-fit:cover;border-radius:0}
+    .card .body{padding:16px;font-size:.95rem;color:var(--muted)}
+    .card h3{margin:0 0 8px;font-size:1.05rem;color:var(--text)}
+    .pill{display:inline-block;padding:6px 10px;border-radius:99px;background:rgba(255,255,255,.06);color:var(--muted);font-size:.8rem;margin-right:8px}
 
-    /* Footer */
-    footer{padding:40px 0; color:var(--muted); text-align:center}
+    /* footer */
+    footer{padding:40px 0;color:var(--muted);text-align:center}
+    #contact{text-align:center} #contact h2{margin-bottom:20px}
 
-    /* Contact */
-    #contact{text-align:center}
-    #contact h2{margin-bottom:20px}
+    /* reveal anim */
+    .reveal{opacity:0;transform:translateY(10px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.show{opacity:1;transform:translateY(0)}
+    @media (max-width:900px){.hero-wrap{grid-template-columns:1fr}}
 
-    /* Animations */
-    .reveal{opacity:0; transform:translateY(10px); transition:opacity .6s ease, transform .6s ease}
-    .reveal.show{opacity:1; transform:translateY(0)}
+    /* clock text */
+    #clock{font-family:'Share Tech Mono',monospace;font-size:1.05rem;letter-spacing:.5px;background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
 
-    /* Responsive */
-    @media (max-width:900px){
-      .hero-wrap{grid-template-columns:1fr}
-    }
+    /* boxes row */
+    .box-strip-wrap{padding:8px 0 14px;display:flex;justify-content:center}
+    .box-strip{position:relative;width:500px;height:72px;overflow:hidden}
+    .marquee{display:flex;gap:18px;width:max-content;animation:marquee 8s linear infinite}
+    .float-box{width:72px;height:72px;border-radius:18px;background:var(--soft);border:1px solid rgba(255,255,255,.08);box-shadow:var(--shadow);transition:transform .15s ease,box-shadow .15s ease,filter .15s ease}
+    .float-box:hover{transform:translateY(-2px) scale(1.05);box-shadow:0 12px 28px rgba(124,140,255,.25);filter:drop-shadow(0 0 8px rgba(124,140,255,.35))}
+    @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(calc(-1 * (72px*5 + 18px*4)))}}
+
+    /* skills icons */
+    .icon-kali{background-image:url('img/c.png');background-size:64%;background-position:center;background-repeat:no-repeat}
+    .icon-aws{background-image:url('img/sql.jpg');background-size:70%;background-position:center;background-repeat:no-repeat}
+    .icon-gcp{background-image:url('img/java.jpg');background-size:58%;background-position:center;background-repeat:no-repeat}
+    .icon-docker{background-image:url('img/html.jpg');background-size:70%;background-position:center;background-repeat:no-repeat}
+    .icon-vercel{background-image:url('img/python.jpg');background-size:70%;background-position:center;background-repeat:no-repeat}
+
+    /* resume modal */
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.55);z-index:100}
+    .modal.open{display:flex}
+    .modal-card{width:min(900px,92vw);height:min(80vh,760px);background:var(--panel);border:1px solid rgba(255,255,255,.12);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+    .modal-header{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.08)}
+    .modal-header h3{margin:0;font-size:1rem}
+    .modal-body{flex:1;background:#000}
+    .modal-body iframe{width:100%;height:100%;border:0}
+    .icon-btn{cursor:pointer;padding:8px 10px;border-radius:10px;background:var(--soft);border:1px solid rgba(255,255,255,.08)}
   </style>
 </head>
 <body>
 
-  <!-- Top Nav -->
+  <!-- top nav -->
   <header class="site">
     <div class="container nav">
-      <a class="logo" href="#">nahom.</a>
+      <a class="logo" href="#" aria-label="home">
+        <span id="clock" style="font-variant-numeric:tabular-nums"></span>
+      </a>
       <nav class="links">
         <a href="#projects">projects</a>
         <a href="#certs">certifications</a>
         <a href="#about">about</a>
         <a href="#contact">contact</a>
+        <a href="#" id="openResume">resume</a>
       </nav>
     </div>
   </header>
 
-  <!-- Hero -->
+  <!-- hero -->
   <section class="hero">
     <div class="container hero-wrap">
       <div>
@@ -97,107 +155,183 @@
           <a class="btn secondary" href="#contact">contact</a>
         </div>
       </div>
-      <!-- Circle Profile Pic -->
       <div class="hero-card reveal">
         <img src="img/me.jpg" alt="nahom"/>
       </div>
     </div>
   </section>
 
-  <!-- Projects -->
+  <!-- boxes -->
+  <section class="box-strip-wrap" aria-hidden="true">
+    <div class="box-strip">
+      <div class="marquee">
+        <div class="float-box icon-kali" title="C"></div>
+        <div class="float-box icon-aws" title="SQL"></div>
+        <div class="float-box icon-gcp" title="Java"></div>
+        <div class="float-box icon-docker" title="HTML"></div>
+        <div class="float-box icon-vercel" title="Python"></div>
+        <div class="float-box icon-kali" title="C"></div>
+        <div class="float-box icon-aws" title="SQL"></div>
+        <div class="float-box icon-gcp" title="Java"></div>
+        <div class="float-box icon-docker" title="HTML"></div>
+        <div class="float-box icon-vercel" title="Python"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- journey -->
+  <section id="journey">
+    <div class="container">
+      <h2 class="section-title">my journey</h2>
+      <div class="card" style="padding:18px;">
+        <p class="lead" style="margin:0; color:var(--muted)">i didn’t always know my path. an online intro to python flipped the switch. building small tools made tech feel real. now i’m deepening my software skills while leaning into cybersecurity: understanding how systems fail, how to harden them, and how attackers think. i’m learning every day through labs and projects, and i’m actively chasing hands on experience, ideally through my first internship.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- projects -->
   <section id="projects">
     <div class="container">
       <h2 class="section-title">projects</h2>
       <div class="grid cols-2">
         <article class="card reveal">
-          <img src="img/weather.jpg" alt="weather app"/>
+          <img src="img/weather.jpg" alt="weather app">
           <div class="body">
             <h3>weather app (python)</h3>
             <p>uses the OpenWeatherMap API to fetch live data and show temperature, humidity, and conditions in a friendly CLI app.</p>
-            <div>
-              <span class="pill">python</span>
-              <span class="pill">api</span>
-            </div>
+            <div><span class="pill">python</span><span class="pill">api</span></div>
           </div>
         </article>
         <article class="card reveal">
-          <img src="img/homelab.jpg" alt="homelab"/>
+          <img src="img/homelab.jpg" alt="homelab">
           <div class="body">
             <h3>cybersecurity homelab</h3>
             <p>VirtualBox lab with Windows Server (Active Directory), Ubuntu, and Kali. created domain users, explored access control, and documented a small network diagram + findings.</p>
-            <div>
-              <span class="pill">active directory</span>
-              <span class="pill">kali</span>
-              <span class="pill">ubuntu</span>
-            </div>
+            <div><span class="pill">active directory</span><span class="pill">kali</span><span class="pill">ubuntu</span></div>
           </div>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- Certifications -->
+  <!-- certs -->
   <section id="certs">
     <div class="container">
       <h2 class="section-title">certifications</h2>
       <div class="grid cols-3">
         <article class="card reveal">
-          <img src="img/ea.jpg" alt="EA"/>
+          <img src="img/ea.jpg" alt="EA">
           <div class="body">
             <h3>Electronic Arts – Software Engineering (Forage)</h3>
             <p>debugging, planning, and design tasks in a simulated EA dev team.</p>
           </div>
         </article>
         <article class="card reveal">
-          <img src="img/gs.jpg" alt="Goldman Sachs" style="object-position:top"/>
+          <img src="img/gs.jpg" alt="Goldman Sachs" style="object-position:top">
           <div class="body">
             <h3>Goldman Sachs – Software Engineering (Forage)</h3>
             <p>solved coding challenges, practiced system design, gained exposure to engineering workflows.</p>
           </div>
         </article>
         <article class="card reveal">
-          <img src="img/secplus.jpg" alt="Security+"/>
+          <img src="img/secplus.jpg" alt="Security+">
           <div class="body">
             <h3>CompTIA Security+ (in progress)</h3>
             <p>currently preparing for Security+ exam: threat analysis, risk management, and network security.</p>
+          </div>
+        </article>
+        <article class="card reveal">
+          <img src="img/network.jpg" alt="CompTIA ITF+">
+          <div class="body">
+            <h3>CompTIA ITF+ (in progress)</h3>
+            <p>foundational certification covering IT concepts, software, hardware, security basics, and troubleshooting. <strong>i’m earning this through my current course this semester, scheduled to wrap in december.</strong></p>
           </div>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- About -->
+  <!-- about -->
   <section id="about">
     <div class="container">
       <h2 class="section-title">about</h2>
       <div class="card" style="padding:18px; text-align:center;">
         <p style="color:var(--muted); margin:0">
-          i’m passionate about technology, security, and problem-solving. i enjoy learning by doing. i’m actively pursuing internships to sharpen my skills and contribute to real-world teams. 
+          i’m passionate about technology, security, and problem-solving. i enjoy learning by doing. i’m actively pursuing internships to sharpen my skills and contribute to real world teams.
         </p>
       </div>
     </div>
   </section>
 
- <!-- Contact -->
-<section id="contact">
-  <h2>📞 contact</h2>
-  <div class="contact-links">
-    <p>phone: <a href="tel:+19043439308">(904) 343-9308</a></p>
-    <p>school email: <a href="mailto:na577360@ucf.edu">na577360@ucf.edu</a></p>
-    <p>personal email: <a href="mailto:nahomab80@gmail.com">nahomab80@gmail.com</a></p>
-  </div>
-</section>
+  <!-- contact -->
+  <section id="contact">
+    <h2>📞 contact</h2>
+    <div class="contact-links">
+      <p>phone: <a href="tel:+19043439308">(904) 343-9308</a></p>
+      <p>school email: <a href="mailto:na577360@ucf.edu">na577360@ucf.edu</a></p>
+      <p>personal email: <a href="mailto:nahomab80@gmail.com">nahomab80@gmail.com</a></p>
+    </div>
+  </section>
 
+  <!-- footer -->
   <footer>
     <div class="container">© <span id="year"></span> nahom abraham — all rights reserved.</div>
   </footer>
 
+  <!-- resume modal -->
+  <div class="modal" id="resumeModal" role="dialog" aria-modal="true" aria-labelledby="resumeTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="resumeTitle">Resume</h3>
+        <button class="icon-btn" id="closeResume">close</button>
+      </div>
+      <div class="modal-body">
+        <iframe src="Updated 2025 Resume.pdf"></iframe>
+      </div>
+    </div>
+  </div>
+
   <script>
+    // year set
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // reveal on scroll
     const io = new IntersectionObserver((entries)=>{
       entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); } });
     },{threshold:.12});
     document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    // clock tick
+    function pad(n){return String(n).padStart(2,'0')}
+    function updateClock(){
+      const d=new Date();
+      const yyyy=d.getFullYear(), mm=pad(d.getMonth()+1), dd=pad(d.getDate());
+      const hh=pad(d.getHours()), mi=pad(d.getMinutes()), ss=pad(d.getSeconds());
+      document.getElementById('clock').textContent = `${yyyy}-${mm}-${dd} ${hh}:${mi}:${ss}`;
+    }
+    updateClock(); setInterval(updateClock, 1000);
+
+    // resume wave
+    (function waveResume(){
+      const link = document.getElementById('openResume');
+      const txt = link.textContent.trim();
+      link.textContent = "";
+      [...txt].forEach((ch,i)=>{
+        const span = document.createElement('span');
+        span.textContent = ch;
+        span.className = 'wave-letter';
+        span.style.animationDelay = (i*0.10)+'s';
+        link.appendChild(span);
+      });
+    })();
+
+    // modal toggle
+    const openBtn = document.getElementById('openResume');
+    const modal = document.getElementById('resumeModal');
+    const closeBtn = document.getElementById('closeResume');
+    openBtn.addEventListener('click', (e)=>{ e.preventDefault(); modal.classList.add('open'); });
+    closeBtn.addEventListener('click', ()=> modal.classList.remove('open'));
+    modal.addEventListener('click', (e)=>{ if(e.target === modal) modal.classList.remove('open'); });
   </script>
 </body>
 </html>
